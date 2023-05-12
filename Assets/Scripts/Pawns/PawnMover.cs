@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PawnMover : MonoBehaviour
 {
-    public GameAudio GameAudio;
     public float HorizontalMovementSmoothing;
     public float VerticalMovementSmoothing;
     public float PositionDifferenceTolerance;
@@ -14,7 +13,6 @@ public class PawnMover : MonoBehaviour
     private MoveChecker moveChecker;
     private PromotionChecker promotionChecker;
     private TurnHandler turnHandler;
-    private CPUPlayer cpuPlayer;
     private bool isPawnMoving;
     private bool isMoveMulticapturing;
 
@@ -24,7 +22,6 @@ public class PawnMover : MonoBehaviour
         moveChecker = GetComponent<MoveChecker>();
         promotionChecker = GetComponent<PromotionChecker>();
         turnHandler = GetComponent<TurnHandler>();
-        cpuPlayer = GetComponent<CPUPlayer>();
     }
 
     public void PawnClicked(GameObject pawn)
@@ -52,7 +49,6 @@ public class PawnMover : MonoBehaviour
             UnselectPawn();
         lastClickedPawn = pawn;
         AddPawnSelection();
-        GameAudio.PlayButtonClickSound();
     }
 
     private void AddPawnSelection()
@@ -64,7 +60,6 @@ public class PawnMover : MonoBehaviour
     {
         RemoveLastClickedPawnSelection();
         lastClickedPawn = null;
-        GameAudio.PlayButtonClickSound();
     }
 
     private void RemoveLastClickedPawnSelection()
@@ -102,23 +97,9 @@ public class PawnMover : MonoBehaviour
 
     private void MovePawn()
     {
-        SendMoveToCPU();
         ChangeMovedPawnParent();
         StartCoroutine(AnimatePawnMove());
         RemoveLastClickedPawnSelection();
-    }
-
-    private void SendMoveToCPU()
-    {
-        if (!ShouldMoveBeSentToCPU()) return;
-        TileIndex fromIndex = lastClickedPawn.GetComponent<IPawnProperties>().GetTileIndex();
-        TileIndex toIndex = lastClickedTile.GetComponent<TileProperties>().GetTileIndex();
-        cpuPlayer.DoPlayerMove(new Move(fromIndex, toIndex));
-    }
-
-    private bool ShouldMoveBeSentToCPU()
-    {
-        return cpuPlayer != null && cpuPlayer.enabled && GetPawnColor(lastClickedPawn) == PawnColor.White;
     }
 
     private void ChangeMovedPawnParent()
@@ -134,7 +115,6 @@ public class PawnMover : MonoBehaviour
         promotionChecker.CheckPromotion(lastClickedPawn);
         isPawnMoving = false;
         EndTurn();
-        GameAudio.PlayPawnSound();
     }
 
     private void EndTurn()
@@ -162,7 +142,6 @@ public class PawnMover : MonoBehaviour
 
     private void CapturePawn()
     {
-        SendMoveToCPU();
         ChangeMovedPawnParent();
         StartCoroutine(AnimatePawnCapture());
         RemoveLastClickedPawnSelection();
@@ -177,7 +156,6 @@ public class PawnMover : MonoBehaviour
         promotionChecker.CheckPromotion(lastClickedPawn);
         isPawnMoving = false;
         MulticaptureOrEndTurn();
-        GameAudio.PlayPawnSound();
     }
 
     private IEnumerator DoCaptureMovement()
@@ -220,12 +198,6 @@ public class PawnMover : MonoBehaviour
     {
         isMoveMulticapturing = true;
         AddPawnSelection();
-        if (IsMoveByCPUAndMulticapturing())
-            cpuPlayer.DoCPUMove();
     }
 
-    private bool IsMoveByCPUAndMulticapturing()
-    {
-        return cpuPlayer != null && cpuPlayer.enabled && GetPawnColor(lastClickedPawn) == PawnColor.Black;
-    }
 }

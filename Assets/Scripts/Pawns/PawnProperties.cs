@@ -25,7 +25,6 @@ public class PawnProperties : MonoBehaviour, IPawnProperties
         IsKing = true;
         CreatePromotionParticles();
         StartCoroutine(AddCrown());
-        PlayPromotionSound();
     }
 
     private void CreatePromotionParticles()
@@ -47,11 +46,6 @@ public class PawnProperties : MonoBehaviour, IPawnProperties
         }
     }
 
-    private void PlayPromotionSound()
-    {
-        var gameAudio = GameObject.FindGameObjectWithTag("Audio").GetComponent<GameAudio>();
-        gameAudio.PlayPromotionSound();
-    }
 
     public void AddPawnSelection()
     {

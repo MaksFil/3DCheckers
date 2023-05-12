@@ -16,6 +16,6 @@ public class CameraPivotSetter : MonoBehaviour
     private void SetPivotInCenter()
     {
         var centerValue = boardSize / 2.0f - 1.0f / 2.0f;
-        transform.position = new Vector3(centerValue, 0, centerValue);
+        transform.position = new Vector3(centerValue, Board.transform.position.y, centerValue);
     }
 }

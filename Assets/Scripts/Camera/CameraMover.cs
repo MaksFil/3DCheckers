@@ -2,10 +2,6 @@
 
 public class CameraMover : MonoBehaviour
 {
-    public float MouseSensitivity;
-    public float ScrollSensitivity;
-    public float MinViewingAngle;
-    public float MaxViewingAngle;
     public float RotationSmoothing;
     public float ScrollSmoothing;
     public float InitialRotation;
@@ -36,36 +32,16 @@ public class CameraMover : MonoBehaviour
 
     private void SetInitialRotation()
     {
-        localRotation.y = InitialRotation; //Mouse y axis is x axis in world space.
+        localRotation.y = InitialRotation;
         var initialRotation = Quaternion.Euler(localRotation.y, 0, 0);
         transform.parent.rotation = initialRotation;
     }
 
     private void LateUpdate()
     {
-        // GetMouseInput();
-        // GetScrollInput();
         ChangePosition();
         ChangeRotation();
     }
-
-    // private void GetMouseInput()
-    // {
-    //     if (!Input.GetMouseButton(1))
-    //         return;
-    //     var xAxis = Input.GetAxis("Mouse X");
-    //     var yAxis = Input.GetAxis("Mouse Y");
-    //     localRotation.x += xAxis * MouseSensitivity;
-    //     localRotation.y -= yAxis * MouseSensitivity;
-    //     localRotation.y = Mathf.Clamp(localRotation.y, MinViewingAngle, MaxViewingAngle);
-    // }
-
-    // private void GetScrollInput()
-    // {
-    //     var scroll = Input.GetAxis("Mouse ScrollWheel");
-    //     localOffeset -= scroll * ScrollSensitivity;
-    //     localOffeset = Mathf.Clamp(localOffeset, minOffset, maxOffset);
-    // }
 
     private void ChangePosition()
     {

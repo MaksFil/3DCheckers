@@ -29,6 +29,7 @@ public class BorderGenerator : MonoBehaviour
         borderGameObject = new GameObject("Border");
         borderGameObject.transform.parent = this.gameObject.transform;
         borderGameObject.transform.position = (Vector3.left + Vector3.back);
+        borderGameObject.transform.position = new Vector3(borderGameObject.transform.position.x, this.gameObject.transform.position.y, borderGameObject.transform.position.z);
     }
 
     private void AssignInitialValues()
