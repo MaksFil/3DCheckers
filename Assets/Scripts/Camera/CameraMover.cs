@@ -28,6 +28,9 @@ public class CameraMover : MonoBehaviour
         minOffset = initialOffset / 10;
         maxOffset = initialOffset;
         transform.position = initialOffset * Vector3.back;
+
+        var lerpOffset = Mathf.Lerp(transform.position.z, -localOffeset, ScrollSmoothing * Time.deltaTime);
+        transform.localPosition = lerpOffset * Vector3.forward;
     }
 
     private void SetInitialRotation()
@@ -35,24 +38,9 @@ public class CameraMover : MonoBehaviour
         localRotation.y = InitialRotation;
         var initialRotation = Quaternion.Euler(localRotation.y, 0, 0);
         transform.parent.rotation = initialRotation;
-    }
 
-    private void LateUpdate()
-    {
-        ChangePosition();
-        ChangeRotation();
-    }
-
-    private void ChangePosition()
-    {
-        var lerpOffset = Mathf.Lerp(transform.localPosition.z, -localOffeset, ScrollSmoothing * Time.deltaTime);
-        transform.localPosition = lerpOffset * Vector3.forward;
-    }
-
-    private void ChangeRotation()
-    {
         Quaternion targetRotation = Quaternion.Euler(localRotation.y, localRotation.x, 0);
         transform.parent.rotation =
-            Quaternion.Lerp(transform.parent.rotation, targetRotation, RotationSmoothing * Time.deltaTime);
+        Quaternion.Lerp(transform.parent.rotation, targetRotation, RotationSmoothing * Time.deltaTime);
     }
 }

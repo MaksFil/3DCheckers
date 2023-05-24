@@ -14,6 +14,6 @@ public class TileProperties : MonoBehaviour
 
     public TileIndex GetTileIndex()
     {
-        return new TileIndex(transform.parent.GetSiblingIndex(), transform.GetSiblingIndex());
+        return new TileIndex(transform.parent.GetSiblingIndex() % 8, transform.GetSiblingIndex(), transform.parent.GetSiblingIndex() / 8);
     }
 }

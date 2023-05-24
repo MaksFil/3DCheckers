@@ -6,6 +6,8 @@ public class BorderGenerator : MonoBehaviour
     public GameObject Corner;
 
     private int boardSize;
+    private int countBoard;
+
     private GameObject borderGameObject;
     private Vector3 currentPosition;
     private Quaternion currentRotation;
@@ -15,21 +17,25 @@ public class BorderGenerator : MonoBehaviour
     {
         ITilesGenerator tilesGenerator = GetComponent<ITilesGenerator>();
         boardSize = tilesGenerator.BoardSize;
+        countBoard = tilesGenerator.CountBoard;
     }
 
     private void Start()
     {
-        CreateBorderGameObject();
-        AssignInitialValues();
-        CreateBorder();
+        for(int i = 0; i < countBoard; i++)
+        { 
+            CreateBorderGameObject(30*i);
+            AssignInitialValues();
+            CreateBorder(); 
+        }
     }
 
-    private void CreateBorderGameObject()
+    private void CreateBorderGameObject(float x)
     {
         borderGameObject = new GameObject("Border");
         borderGameObject.transform.parent = this.gameObject.transform;
         borderGameObject.transform.position = (Vector3.left + Vector3.back);
-        borderGameObject.transform.position = new Vector3(borderGameObject.transform.position.x, this.gameObject.transform.position.y, borderGameObject.transform.position.z);
+        borderGameObject.transform.position = new Vector3(borderGameObject.transform.position.x + transform.position.x + x, this.gameObject.transform.position.y, borderGameObject.transform.position.z);
     }
 
     private void AssignInitialValues()

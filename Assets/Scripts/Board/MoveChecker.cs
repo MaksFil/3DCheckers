@@ -46,10 +46,10 @@ public class MoveChecker : MonoBehaviour
     public bool PawnHasCapturingMove(GameObject pawn)
     {
         pawnToCheck = pawn;
-        TileIndex checkingDirectionInIndex = new TileIndex(1, 1);
+        TileIndex checkingDirectionInIndex = new TileIndex(1, 1, 0);
         if (HasCapturingMoveOnDiagonal(checkingDirectionInIndex))
             return true;
-        checkingDirectionInIndex = new TileIndex(-1, 1);
+        checkingDirectionInIndex = new TileIndex(-1, 1, 0);
         if (HasCapturingMoveOnDiagonal(checkingDirectionInIndex))
             return true;
         return false;
@@ -93,10 +93,10 @@ public class MoveChecker : MonoBehaviour
 
     private bool PawnHasNoncapturingMove()
     {
-        TileIndex checkingDirectionInIndex = new TileIndex(1, 1);
+        TileIndex checkingDirectionInIndex = new TileIndex(1, 1, 0);
         if (HasNoncapturingMoveOnDiagonal(checkingDirectionInIndex))
             return true;
-        checkingDirectionInIndex = new TileIndex(-1, 1);
+        checkingDirectionInIndex = new TileIndex(-1, 1, 0);
         if (HasNoncapturingMoveOnDiagonal(checkingDirectionInIndex))
             return true;
         return false;
@@ -124,9 +124,9 @@ public class MoveChecker : MonoBehaviour
     {
         pawnToCheck = pawn;
         LinkedList<TileIndex> result = new LinkedList<TileIndex>();
-        TileIndex checkingDirectionInIndex = new TileIndex(1, 1);
+        TileIndex checkingDirectionInIndex = new TileIndex(1, 1, 0);
         result.AppendRange(GetNoncapturingMovesOnDiagonal(checkingDirectionInIndex));
-        checkingDirectionInIndex = new TileIndex(-1, 1);
+        checkingDirectionInIndex = new TileIndex(-1, 1, 0);
         result.AppendRange(GetNoncapturingMovesOnDiagonal(checkingDirectionInIndex));
         return result;
     }
@@ -150,9 +150,9 @@ public class MoveChecker : MonoBehaviour
     {
         pawnToCheck = pawn;
         LinkedList<TileIndex> result = new LinkedList<TileIndex>();
-        TileIndex checkingDirectionInIndex = new TileIndex(1, 1);
+        TileIndex checkingDirectionInIndex = new TileIndex(1, 1, 0);
         result.AppendRange(GetCapturingMovesOnDiagonal(checkingDirectionInIndex));
-        checkingDirectionInIndex = new TileIndex(-1, 1);
+        checkingDirectionInIndex = new TileIndex(-1, 1, 0);
         result.AppendRange(GetCapturingMovesOnDiagonal(checkingDirectionInIndex));
         return result;
     }

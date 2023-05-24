@@ -67,7 +67,7 @@ public class PawnMoveValidator : MonoBehaviour
     {
         //Move direction means TileIndex with both values equal to +-1.
         return new TileIndex(positionDifferenceInIndex.Column / Mathf.Abs(positionDifferenceInIndex.Column),
-            positionDifferenceInIndex.Row / Mathf.Abs(positionDifferenceInIndex.Row));
+            positionDifferenceInIndex.Row / Mathf.Abs(positionDifferenceInIndex.Row), 0);
     }
 
     private bool IsTileOccupied(TileIndex tileIndex)
