@@ -23,7 +23,9 @@ public class TileClickDetector : MonoBehaviour
     private void OnMouseDown()
     {
         if (tileProperties.IsOccupied())
+        {
             pawnMover.PawnClicked(tileProperties.GetPawn());
+        }
         else
             pawnMover.TileClicked(this.gameObject);
     }

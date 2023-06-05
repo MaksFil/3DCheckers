@@ -74,9 +74,9 @@ public class PawnMover : MonoBehaviour
 
     public void TileClicked(GameObject tile)
     {
-        //TODO: Add available moves highlight.
         if (!CanTileBeClicked()) return;
         lastClickedTile = tile;
+        // print(IsMoveNoncapturingAndValid());
         if (IsMoveNoncapturingAndValid())
             MovePawn();
         else if (IsMoveCapturingAndValid())
@@ -152,7 +152,7 @@ public class PawnMover : MonoBehaviour
         isPawnMoving = true;
         yield return DoCaptureMovement();
         RemoveCapturedPawn();
-        yield return null; //Waiting additional frame for captured pawn destruction.
+        yield return null;
         promotionChecker.CheckPromotion(lastClickedPawn);
         isPawnMoving = false;
         MulticaptureOrEndTurn();

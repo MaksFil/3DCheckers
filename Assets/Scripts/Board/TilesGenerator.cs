@@ -3,7 +3,7 @@
 public class TilesGenerator : MonoBehaviour, ITilesGenerator
 {
     public int BoardSize { get; private set; } = 8;
-    public int CountBoard { get; private set; } = 3;
+    public int CountBoard { get; private set; } = 2;
     public GameObject Tile;
     public Material WhiteMaterial;
     public Material BlackMaterial;

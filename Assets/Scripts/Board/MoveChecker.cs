@@ -94,15 +94,18 @@ public class MoveChecker : MonoBehaviour
     private bool PawnHasNoncapturingMove()
     {
         TileIndex checkingDirectionInIndex = new TileIndex(1, 1, 0);
-        if (HasNoncapturingMoveOnDiagonal(checkingDirectionInIndex))
+        if (HasNoncapturingMove(checkingDirectionInIndex))
             return true;
         checkingDirectionInIndex = new TileIndex(-1, 1, 0);
-        if (HasNoncapturingMoveOnDiagonal(checkingDirectionInIndex))
+        if (HasNoncapturingMove(checkingDirectionInIndex))
+            return true;
+        checkingDirectionInIndex = new TileIndex(0, 0, 1);
+        if(HasNoncapturingMove(checkingDirectionInIndex))
             return true;
         return false;
     }
 
-    private bool HasNoncapturingMoveOnDiagonal(TileIndex checkingDirectionInIndex)
+    private bool HasNoncapturingMove(TileIndex checkingDirectionInIndex)
     {
         var pawnTileIndex = pawnToCheck.GetComponent<IPawnProperties>().GetTileIndex();
         var firstTileIndexToCheck = pawnTileIndex - checkingDirectionInIndex;
@@ -125,13 +128,16 @@ public class MoveChecker : MonoBehaviour
         pawnToCheck = pawn;
         LinkedList<TileIndex> result = new LinkedList<TileIndex>();
         TileIndex checkingDirectionInIndex = new TileIndex(1, 1, 0);
-        result.AppendRange(GetNoncapturingMovesOnDiagonal(checkingDirectionInIndex));
+        result.AppendRange(GetNoncapturingMoves(checkingDirectionInIndex));
         checkingDirectionInIndex = new TileIndex(-1, 1, 0);
-        result.AppendRange(GetNoncapturingMovesOnDiagonal(checkingDirectionInIndex));
+        result.AppendRange(GetNoncapturingMoves(checkingDirectionInIndex));
+        checkingDirectionInIndex = new TileIndex(0, 0, 1);
+        result.AppendRange(GetNoncapturingMoves(checkingDirectionInIndex));
+        
         return result;
     }
 
-    private LinkedList<TileIndex> GetNoncapturingMovesOnDiagonal(TileIndex checkingDirectionInIndex)
+    private LinkedList<TileIndex> GetNoncapturingMoves(TileIndex checkingDirectionInIndex)
     {
         LinkedList<TileIndex> result = new LinkedList<TileIndex>();
         for (var tileIndexToCheck = GetFirstTileIndexToCheck(checkingDirectionInIndex);
